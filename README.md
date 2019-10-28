@@ -1,4 +1,4 @@
-The script is written in bash and uses arrays to adjust a reference fasta file for called SNPs (point mutations). The algorithm has been used to improve the mappability of RNA-seq reads for newly emerged bacterial hybrids.
+The scripts are written in bash and uses arrays to adjust a reference fasta file for called SNPs (point mutations), and indels. The algorithm has been used to improve the mappability of RNA-seq reads for newly emerged bacterial hybrids and to correct reference annotations (gft, bed, gff3).
 
 **Problem**  
 Two closely related bacterial strains (subspecies, species) recombined and created a new bacterial hybrid. The two bacterial strains are called a donor and a recipient. We have DNA-seq reads of the donor and the hybrid, as well as RNA-seq reads of the hybrid. We want to reconstruct the reference genome of the hybrid to increase the precision of RNA-seq reads mapping.
