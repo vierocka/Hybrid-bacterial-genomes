@@ -19,7 +19,7 @@ to create a new reference of genome (chromosome) of the hybrid bacterial strain 
 one the bash scripts: adjustments of the reference genome (donor's fasta file)
 
 The scripts created to prepare adjusted genome references of hybrid bacterial strains:  
-- reference adjustment (only point mutation) 
+- reference adjustment (only point mutation)  
 See the script "Hybrid genome assembly"
 - advance reference adjustment (point mutations and indels) 
 - advance reference annotation (point mutations and indels)
