@@ -12,7 +12,7 @@ A prerequisite for this analysis is accurate RNA-seq read mapping. Systematic mi
 
 This approach was used to study short-term evolution in newly emerged bacterial hybrids in:
 
-> Murina V, Kasari M, Takada H, Hinnu M, Saha CK, Grimshaw JW, Seki T, Tozawa Y, Felden B, Hauryliuk V, Atkinson GC, Tenson T. **ABCF ATPases involved in protein synthesis, ribosome assembly and antibiotic resistance: structural and functional diversification across the tree of life.** *PNAS* 2021; 118(5): e2007873118. https://doi.org/10.1073/pnas.2007873118
+> Power JJ, Pinheiro F, Pompei S, Kovacova V, Yüksel M, Rathmann I, Förster M, Lässig M, Maier B. **Adaptive evolution of hybrid bacteria by horizontal gene transfer.** *Proceedings of the National Academy of Sciences* 2021; 118(10): e2007873118. https://doi.org/10.1073/pnas.2007873118
 
 ---
 
