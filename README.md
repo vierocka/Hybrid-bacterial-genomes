@@ -142,9 +142,40 @@ The original bash implementation loaded the genome into a shell array (one eleme
 
 ---
 
+## Limitations
+
+**Point mutations (SNPs) only.**
+Insertions and deletions (indels) are not handled. Any indel records present in the VCF are silently skipped. This is intentional: applying indels shifts all downstream coordinates, which invalidates existing annotation files (GTF, BED, GFF3) without a separate coordinate-lift step. If indels between the donor and hybrid are frequent or large, the corrected reference produced here will still carry coordinate errors in those regions.
+
+**Single chromosome.**
+The scripts process one FASTA sequence. For multi-chromosome genomes, split the FASTA by chromosome and run the script once per chromosome.
+
+**Quality of the VCF is your responsibility.**
+The scripts apply every SNP in the input file without re-evaluating quality. Poorly filtered VCFs (false-positive SNPs, heterozygous calls, low-coverage sites) will introduce errors into the output genome. Review your GATK filtering thresholds before running.
+
+**Closely related strains only.**
+The approach assumes that the hybrid genome is structurally similar to the donor — same gene order, no large inversions or translocations. It corrects individual nucleotides; it does not reconstruct rearranged or horizontally acquired regions.
+
+**Annotation files are not updated.**
+The output is a corrected FASTA only. Existing GTF/GFF3/BED annotations from the donor remain valid as long as no indels are present, because SNPs do not shift coordinates. If you do need to apply indels separately, the annotation files must be lifted over using a tool such as CrossMap or UCSC liftOver.
+
+---
+
+## Pros and cons
+
+| | |
+|---|---|
+| **Fast** | O(genome + n\_snps · log n\_snps); handles a 4 Mb genome with thousands of SNPs in under a second |
+| **No dependencies** | bash/gawk version needs only gawk (standard on Linux); Python version needs only Python ≥ 3.6 |
+| **Transparent** | optional substitution log lists every change applied; easy to verify |
+| **Annotation-safe** | SNP-only corrections preserve all original coordinates — GTF/GFF3/BED files remain valid |
+| **Point mutations only** | indels are not applied; regions with insertions/deletions remain uncorrected |
+| **Single chromosome** | multi-chromosome genomes require one run per chromosome |
+| **No rearrangements** | large structural differences between donor and hybrid are invisible to this approach |
+
+---
+
 ## Notes
 
-- **Single chromosome only.** For multi-chromosome genomes, split the FASTA by chromosome and run the script once per chromosome.
-- **VCF positions are 1-based.** The scripts handle the 1-to-0 index conversion internally.
-- **No e-value cutoff was applied during SNP calling** in the original study — all GATK-filtered SNPs were retained. Evaluate your own VCF filtering stringency before applying.
-- The FASTA header of the donor reference is preserved in the output. Rename it afterwards if needed (e.g. `sed -i 's/^>.*/\>hybrid_chromosome/' hybrid.fa`).
+- VCF positions are 1-based; both scripts handle the conversion to 0-based indexing internally.
+- The FASTA header from the donor reference is preserved in the output. Rename it if needed: `sed -i 's/^>.*/\>hybrid_chromosome/' hybrid.fa`
