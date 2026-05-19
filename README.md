@@ -2,7 +2,15 @@
 
 Scripts to apply point mutations (SNPs) from a filtered VCF to a donor reference genome, producing a corrected reference for a bacterial hybrid strain. Used to improve RNA-seq read mappability in newly emerged bacterial hybrids.
 
-This approach was used in:
+---
+
+## Biological context
+
+When two closely related bacterial strains recombine, the resulting hybrid acquires point mutations relative to the donor. Comparing SNPs across multiple independently emerged hybrids — and tracking them over time — allows the classification of each mutation as **synonymous** (silent, same amino acid) or **nonsynonymous** (amino acid change), providing a window into the short-term molecular evolution of the hybrid lineage. Patterns of synonymous and nonsynonymous substitutions reveal which genes are under purifying selection, positive selection, or neutral drift shortly after recombination.
+
+A prerequisite for this analysis is accurate RNA-seq read mapping. Systematic mismatches between the hybrid transcriptome and an unadjusted donor reference inflate mapping errors and distort expression quantification, particularly at positions that differ between the strains. Correcting the reference for known SNPs before mapping resolves this and ensures that downstream synonymous/nonsynonymous classification is based on the true hybrid sequence rather than the donor.
+
+This approach was used to study short-term evolution in newly emerged bacterial hybrids in:
 
 > Murina V, Kasari M, Takada H, Hinnu M, Saha CK, Grimshaw JW, Seki T, Tozawa Y, Felden B, Hauryliuk V, Atkinson GC, Tenson T. **ABCF ATPases involved in protein synthesis, ribosome assembly and antibiotic resistance: structural and functional diversification across the tree of life.** *PNAS* 2021; 118(5): e2007873118. https://doi.org/10.1073/pnas.2007873118
 
@@ -18,7 +26,7 @@ Using the donor reference as-is for RNA-seq mapping of the hybrid introduces sys
 
 ## Aim
 
-Produce a corrected reference FASTA for a single bacterial chromosome by substituting donor nucleotides with hybrid-specific SNPs at their exact positions.
+Produce a corrected reference FASTA for a single bacterial chromosome by substituting donor nucleotides with hybrid-specific SNPs at their exact positions. Point mutations are the sole focus: they shift no coordinates, leave annotation files intact, and are sufficient to classify synonymous versus nonsynonymous changes for evolutionary analysis.
 
 ---
 
